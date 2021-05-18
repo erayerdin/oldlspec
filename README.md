@@ -10,7 +10,7 @@
 
 # OLDL (One Line Data Language)
 
-![Documentation Status](https://img.shields.io/readthedocs/oldl?style=flat-square)
+![Documentation Status](https://img.shields.io/readthedocs/oldlspec?style=flat-square)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/erayerdin/oldl?style=flat-square)
 
 OLDL is a data language just like JSON, YAML or TOML but the data is represented on one line.
