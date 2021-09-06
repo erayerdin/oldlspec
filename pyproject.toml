@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "oldlspec"
+version = "0.1.0"
+description = ""
+authors = ["Eray Erdin <eraygezer.94@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+mkdocs = "^1.2.2"
+mkdocs-material = "^7.2.6"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
