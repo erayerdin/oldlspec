@@ -24,10 +24,14 @@ markdown_extensions:
   - footnotes
 
 nav:
-    - Home: index.md
-    - General Structure: structure.md
-    - Body:
-      - Key-Value Pairs: keyvalue.md
-      - Data Types: datatypes.md
-    - Content: content.md
-    - Implementations: implementations.md
+  - Home: index.md
+  - For Everyday Users:
+      - An Introduction: everydayusers.md
+  - For Implementors:
+      - General Structure: structure.md
+      - Body:
+          - Key-Value Pairs: keyvalue.md
+          - Data Types: datatypes.md
+      - Content: content.md
+  - For Developers:
+      - Implementations: implementations.md

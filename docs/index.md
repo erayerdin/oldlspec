@@ -20,7 +20,7 @@ Google also uses some filters on its search engine. You can use `site:foo.com` o
 
 In both examples, some keywords are accompanied by these filters as well.
 
-To solve the same problem, some websites rely on "detailed search" section with multiple form fields. Some other websites rely on Javascript based solution, providing *pill-like* components in an input field.
+To solve the same problem, some websites rely on "detailed search" section with multiple form fields. Some other websites rely on Javascript-based solution, providing *pill-like* components in an input field. While this presents (maybe) a good UI/UX solution, it is simply too much work to implement and is prone to bugs at times.
 
 OLDL tries to solve this problem by providing a standard.
 
@@ -30,7 +30,7 @@ OLDL tries to solve this problem by providing a standard.
  - **The data should be *human-writable***. As well as human-readability, the standard should be set in a way that a user can provide this data. In desktop, (i) it should require as less key combinations[^1] as possible and (ii) these key combinations should be physically close[^2] to each other. In mobile, it should have (i) as less long-press[^3] as possible and (ii) page-switch[^4] should be avoided.
  - **Users should be able to provide content along with data**. In some cases, key-value pairs do not make sense by themselves or they are simply not enough. So, users should be able to provide a content containing keywords to narrow the results down further.
  - **The data should be friendly for any user**. OLDL does not only target developers as users, but everyday users as well. The data should be presented in a way that any user make sense out of it or write it.
- - **The data should be flat as much as possible**. Since the data should be *human-writable* and *human-readable*, a second dimension in data would require complex presentations, which is very hard to read and write. That's why it's better to keep it in one dimension as much as possible. We say "as much as possible" because users also should be able to present some kind of array to, for instance, filter different targets in the same domain. See [Array](datatypes.md#array) for details.
+ - **The data should be flat as much as possible**. Since the data should be *human-writable* and *human-readable*, a second dimension in data would require complex representations, which is very hard to read and write. That's why it's better to keep it in one dimension as much as possible. We say "as much as possible" because users also should be able to present some kind of array to, for instance, filter different targets in the same domain. See [Array](datatypes.md#array) for details.
 
 ## Documentation License
 
