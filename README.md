@@ -15,26 +15,12 @@
 
 OLDL is a data language just like JSON, YAML or TOML but the data is represented on one line.
 
-It tries to solve the problem where user can provide the data only on one line such as input field on web browsers.
+It tries to set a standard where the user provides a data on one-line. It is supposed to be human-writable as well as human-readable.
 
-## Examples
+An example would be:
 
 ```plain
-/* provide keys and values */
-topic:linguistics author:"noam chomsky"
-
-/* provide a content for full-text search, before or after */
-higurashi type:anime
-type:anime higurashi
-
-/* has types */
-name:Eray age:27 points:3.7
-
-/* has array */
-type:bug type:need-help
-
-/* has null values */
-is-created: is-updated:
+batman genre:thriller,action year:2000..2005 order:+released stars:>3
 ```
 
 ## Specification and Implementations

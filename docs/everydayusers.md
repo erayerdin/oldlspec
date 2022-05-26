@@ -10,7 +10,7 @@
 
 # An Introduction for Everyday Users
 
-A plain text is a valid text in OLDL. So:
+A plain text is totally valid in OLDL. So:
 
 ```plain
 this is valid
@@ -42,6 +42,12 @@ However, you also want to have a phone with either 4-core or 6-core CPU. Then, y
 
 ```plain
 phone os:android sort:+price cores:4 cores:6
+```
+
+Let's say you want to only look for second hand phones, then you can do:
+
+```plain
+phone os:android sort:+price state:"second hand"
 ```
 
 Congratulations, this is all you need to know about OLDL, it is simple as that.

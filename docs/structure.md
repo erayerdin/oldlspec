@@ -1,7 +1,7 @@
 <!--
- oldl (c) by Eray Erdin
+ oldlspec (c) by Eray Erdin
  
- oldl is licensed under a
+ oldlspec is licensed under a
  Creative Commons Attribution-ShareAlike 4.0 International License.
  
  You should have received a copy of the license along with this
@@ -10,18 +10,65 @@
 
 # General Structure
 
-A deserialized OLDL data should be an array. There are two types of elements that this array should contain: regular (R) and pair (P).
+A deserialized OLDL data should return an array of entries. There are two kinds of entries:
 
-Below are some examples about the input and output.
+ - **Pair** entries, which we will refer to as `P`s while giving some examples.
+ - **Text** entries, which we will refer to as `T`s while giving some examples.
 
-| # | Input | Output |
-|---|---|---|
-| 1.1 | phone | `[R("phone")]` |
-| 1.2 | phone os:android | `[R("phone"), P("os", "android")]` |
-| 1.3 | phone os:android headphones sort:+price | `[R("phone"), P("os", "android"), R("headphones"), P("sort", "+price")]` |
-| 1.4 | phone os:android cores:4 cores:6 | `[R("phone") P("os", "android"), P("cores", "4"), P("cores", "6")]` |
+Check out the example below:
 
-From these examples, you may have noticed a couple of things:
+| Input | Output |
+| ----- | ------ |
+| `foo bar:baz` | `[T("foo"), P("bar", "baz")]` |
 
- - **As you can see in the sample 1.3**, a content in the middle (headphones) is considered to be a regular type. Thus, a key and a value must not have whitespaces.
- - **As you can see in the sample 1.4**, and the others as well, there's only string type even if the content provided is a valid integer.
+In this example, the user provides `foo bar:baz` as input, which should result as one `T` with `foo` and one `P` with `bar` and `baz` as its values.
+
+## Frequently Asked Questions
+
+### As an implementor, how do I define an array with two types?
+
+In highly object-oriented languages, you can create a base abstract class or interface named `Entry` and extend or implement it with two concrete classes: `Pair` and `Text`. Check out a Dart example below:
+
+```dart
+abstract class Entry {
+  String get value;
+}
+
+class Pair extends Entry {
+  final String key;
+  final String value;
+
+  Pair(this.key, this.value);
+}
+
+class Text extends Entry {
+  final String value;
+
+  Text(this.value);
+}
+
+// somewhere in code
+
+// the result of: `foo bar:baz`
+final List<Entry> entries = [
+    Text('foo'),
+    Pair('bar', 'baz'),
+];
+```
+
+If the language you are implementing OLDL has enums with values, you can check out this example in Rust:
+
+```rust
+enum Entry {
+    Text(String),
+    Pair(String, String),
+}
+
+// somewhere in code
+
+// the result of: `foo bar:baz`
+let entries = vec![
+    Entry::Text("foo".to_string()),
+    Entry::Pair("bar".to_string(), "baz".to_string()),
+];
+```

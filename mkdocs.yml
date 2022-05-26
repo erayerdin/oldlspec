@@ -22,6 +22,8 @@ markdown_extensions:
   - toc:
       permalink: true
   - footnotes
+  - attr_list
+  - md_in_html
 
 nav:
   - Home: index.md
@@ -30,7 +32,6 @@ nav:
   - For Implementors and Developers:
       - General Structure: structure.md
       - Pairs: pairs.md
-      - Data Types: datatypes.md
-      - Regular Type: regular.md
+      - Texts: texts.md
   - For Developers:
       - Implementations: implementations.md

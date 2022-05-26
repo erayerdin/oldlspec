@@ -7,7 +7,7 @@ authors = ["Eray Erdin <eraygezer.94@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.6"
 mkdocs = "^1.2.2"
-mkdocs-material = "^7.2.6"
+mkdocs-material = "^8.2.15"
 
 [tool.poetry.dev-dependencies]
 

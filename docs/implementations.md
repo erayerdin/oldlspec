@@ -1,7 +1,7 @@
 <!--
- oldl (c) by Eray Erdin
+ oldlspec (c) by Eray Erdin
  
- oldl is licensed under a
+ oldlspec is licensed under a
  Creative Commons Attribution-ShareAlike 4.0 International License.
  
  You should have received a copy of the license along with this
@@ -10,4 +10,4 @@
 
 # Implementations
 
-Currently, there is no implementation of OLDL exists. If you had an implementation, we'd be very happy to list it in here.
+There are no implementations of OLDL yet. If you have it, we would love to show it here.
