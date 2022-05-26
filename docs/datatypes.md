@@ -10,124 +10,69 @@
 
 # Data Types
 
-The body has pairs and pairs are formed of key, definer and value. The format of key and definer is already defined in [Key-Value Pairs](keyvalue.md) section. The format of value is dependent on the type it has.
+As already defined in [General Structure](structure.md), OLDL data should be deserialized into an array of two types. Those are:
 
-## String
+ - *Regular (R)*: This is just a string that a user has provided.
+ - *Pair (P)*: This is the key value pairs.
 
-A string can be defined with or without any string delimiter if it has no whitespace characters, the valid string delimiters are single (`'`) and double quotation marks (`"`). These quotation marks should surround the value if present.
+| # | Input | Output |
+|---|---|---|
+| 1.1 | foo bar:baz | `[R("foo"), P("bar", "baz")]` |
 
-```plain
-key1=value1 key2='value2' key3="value3"
-```
-
-If the string contains any whitespace, string delimiters are required.
-
-```plain
-/* invalid */
-name:Ruslan Hasanov
-
-/* valid */
-name:"Ruslan Hasanov"
-name:'Ruslan Hasanov'
-```
-
-## Number
-
-The integers are floats can be defined as follows:
-
-```plain
-age:27
-points:3.25
-points:3,25
-
-/* these will resolve as string, be careful */
-age:"27"
-points:'3.25'
-points:'3,25'
-```
-
-If you are curious as to why there is only *number* type instead of separate integer and float type and why we can define float with comma, see [Frequently Asked Questions][faq] section.
-
-## Array
-
-In OLDL, the keys are not bound to be unique. You can define them multiple times and that's exactly how we can define arrays.
-
-```plain
-is:open is:bug
-```
-
-The result is:
-
-```plain
-content: ""
-body: {
-    "is": ["open", "bug"]
-}
-```
-
-If you think defining the same key multiple times to form an array is counterintuitive, think that some other way (like separating with comma) should be the method or this requires a lot of keypresses, which is a no-go for mobile, see [Frequently Asked Questions][faq].
-
-## Null
-
-In [Key-Value Pairs](keyvalue.md) section, we have said *values are optional*. So user can provide only key and definer to provide a null value.
-
-```plain
-is-open: is-issue:
-```
-
-The result is:
-
-```
-content: ""
-body: {
-    "is-open": null,
-    "is-issue": null,
-}
-```
-
-If you think why we should need a null type in the first place, you can refer to related [Frequently Asked Questions][faq] section.
+The terminal attrubutes of these data types are always string. There's no other type than string in OLDL. This is because it is the developer's job to handle the expected data type to cover the cases.
 
 ## Frequently Asked Questions
 
-### Why does the specification not define separate integer and float type?
+### As a developer, how do we define an array?
 
-As we discussed in [Objectives][objectives], *the data should be friendly for any user*. A developer can make sense of integer and float distinction but everyday user might not be aware of that.
+Since there's only string type in OLDL, one might need this requirement to have a sort of array and wonder why it does not exist.
 
-This distinction can be made in implementation in a language anyway so it is left to implementation developers to deserialize the number type into float or integer in their programming languages.
+That's because it requires a lot of keypresses and that defies the [objective][objective] "The data should be human-writable.".
 
-### Why can we define float with comma?
+If you need an array so bad, two approaches below are convenient to achieve that:
 
-As we discussed in [Objectives][objectives], *the data should be friendly for any user*. In some locales, the default for decimal separator is comma or an everyday user got accustomed to using comma instead of dot.
+| | Example Input | Advantages | Disadvantages | Approach |
+|---|---|---|---|---|
+| Comma-separated values | `foo:bar,baz,qux` | Easier to write for users | Users might provide comma+space, which would cause headaches. | Simply split the value by comma.
+| Multiple keys | `foo:bar foo:baz foo:qux` | Clear. | Harder to write for users | Put the each value of `foo` key into an array. |
 
-### Why do we provide multiple keys to define an array?
+### As an implementor, do I need to implement array to make it convenient for developers to handle multiple values?
 
-At first, it might be counterintuitive to define arrays with defining keys multiple times because it requires a lot of keypresses and that defies the [objective][objective] "The data should be human-writable.".
+The common approaches along with their pros and cons are discussed in [this question](datatypes.md#how-do-we-define-an-array). Since there are multiple possible approaches, it is the best bet to not implement it in your library.
 
-A better approach you might come up with is to separate the values with commas or something similiar like `key:value1,value2` which would result in `{"key":["value1", "value2"]}`.
+### As an implementor, in the target language, how do I define an array with two different types R and P?
 
-In current version of OLDL, the data above will result in `{"key": "value1,value2"}`, which is actually a string. The proposed approach would conflict with String type, which is not desired in this case.
+In highly object oriented languages, you can create an interface or abstract class named `Type` and implement it with two concrete classes named `Regular` and `Pair`. With this method, you can define an array with two types, using the parent interface. An example using Dart is:
 
-An implementation user can come up with a parsing solution anyway. They can parse `value1,value2` with [a simple split method like in Python](https://docs.python.org/3/library/stdtypes.html#str.split) to turn it into an array if this is the behavior they'd like.
+```dart
+// A super-class.
+abstract class Type {
+    // ...
+}
 
-### Why is there no boolean type?
+// A concrete class that extends `Type`.
+class RegularType extends Type {
+    // ...
+}
 
-A boolean type would, again, conflict with a string type without delimiters. Also, four or five keypresses would be too much if the data contained more than one boolean type. The thing is, the same behavior can be achieved by not checking the values, but validating the existence of a key in the body.
+// A concrete class that extends `Type`.
+class PairType extends Type {
+    // ...
+}
 
-For example, instead of defining `bug=true`, an implementation user might check `is-bug` key in body. In case of presence, the developer would implement the `true` behavior.
+// ... later in code ...
 
-### Why is there a null type?
+final List<Type> output  [Regular(), Pair()];
+```
 
-As discussed in [Why is there no boolean type?](datatypes.md#why-is-there-no-boolean-type), in some cases, what's important for a developer could be to check whether a specific key exists, like `is-bug`. In that case, user would only provide `is-bug:` as an input, which is `null`, but what's important is not the value of `is-bug`, it is whether it exists or not.
+If the target language has value-based enums as in Rust, you can simply use them. A Rust example would be:
 
-### Why is there no X-type?
-
-This question can mean anything. However, as mentioned in the [objectives][objectives], "the data should be friendly for any user".
-
-For example, you might think some kind of datetime data type should exist in OLDL [just like TOML](https://toml.io/en/v1.0.0#offset-date-time). However, datetime itself has its formats like [RFC 3339](https://tools.ietf.org/html/rfc3339), which is cumbersome to write for user.
-
-Or you might think some human-readable names could be present such as "now", "yesterday" or "5 days ago" or "tomorrow" even, but that only complicates things for implementation developers. On the other hand, this can be, again, post-processed implementation user.
-
-We think the types we have at hand now are just enough for implementation developers, implementation users and end users.
+```rust
+enum Type {
+    Regular(String),
+    Pair(String, String),
+}
+```
 
 [faq]: datatypes.md#frequently-asked-questions
 [objectives]: index.md#objectives

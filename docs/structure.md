@@ -10,25 +10,18 @@
 
 # General Structure
 
-!!! tip
-    The results are presented in a way that is similiar to Python for easier understanding. `""` is string, `{}` is dict and `[]` is array.
+A deserialized OLDL data should be an array. There are two types of elements that this array should contain: regular (R) and pair (P).
 
-OLDL mainly consists of two main parts: (i) content and (ii) body.
+Below are some examples about the input and output.
 
-```plain
-cute category:cats
-```
+| # | Input | Output |
+|---|---|---|
+| 1.1 | phone | `[R("phone")]` |
+| 1.2 | phone os:android | `[R("phone"), P("os", "android")]` |
+| 1.3 | phone os:android headphones sort:+price | `[R("phone"), P("os", "android"), R("headphones"), P("sort", "+price")]` |
+| 1.4 | phone os:android cores:4 cores:6 | `[R("phone") P("os", "android"), P("cores", "4"), P("cores", "6")]` |
 
-In this case, this expression results in:
+From these examples, you may have noticed a couple of things:
 
-```plain
-content: "cute"
-body: {"category": "cats"}
-```
-
-Both content and body are optional. So, empty input would result in:
-
-```plain
-content: ""
-body: {}
-```
+ - **As you can see in the sample 1.3**, a content in the middle (headphones) is considered to be a regular type. Thus, a key and a value must not have whitespaces.
+ - **As you can see in the sample 1.4**, and the others as well, there's only string type even if the content provided is a valid integer.

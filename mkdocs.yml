@@ -27,11 +27,10 @@ nav:
   - Home: index.md
   - For Everyday Users:
       - An Introduction: everydayusers.md
-  - For Implementors:
+  - For Implementors and Developers:
       - General Structure: structure.md
-      - Body:
-          - Key-Value Pairs: keyvalue.md
-          - Data Types: datatypes.md
-      - Content: content.md
+      - Pairs: pairs.md
+      - Data Types: datatypes.md
+      - Regular Type: regular.md
   - For Developers:
       - Implementations: implementations.md
