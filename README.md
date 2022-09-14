@@ -25,7 +25,7 @@ batman genre:thriller,action year:2000..2005 order:+released stars:>3
 
 ## Specification and Implementations
 
-You can read the specification [here](https://oldl.readthedocs.io). You can view implementations on [Implementations](https://oldl.readthedocs.io/implementations) section.
+You can read the specification [here](https://oldlspec.readthedocs.io). You can view implementations on [Implementations](https://oldlspec.readthedocs.io/implementations) section.
 
 ## License
 
