@@ -16,13 +16,13 @@ Pairs are a type of entry. In OLDL, you can spot them by the colon.
 | ----- | ------ |
 | `foo:bar` | `[P("foo", "bar")]` |
 
-There should not be any space around the colon. If so, it should be considered as a text entry.
+There might be any number of spaces around the colon. It will be a valid pair.
 
 | Input      | Output |
 | ---------- | ------ |
-| `foo :bar` | `[T("foo :bar")]` |
-| `foo: bar` | `[T("foo: bar")]` |
-| `foo : bar` | `[T("foo : bar")]` |
+| `foo :bar` | `[P("foo", "bar")]` |
+| `foo: bar` | `P("foo", "bar")]` |
+| `foo : bar` | `P("foo", "bar")]` |
 
 ## Keys and Values with Multiple Words
 
