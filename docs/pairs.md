@@ -48,11 +48,33 @@ While the implementors should always provide their implementations to always ret
 
 ## Arrays (Especially for Developers)
 
-As mentioned [The Type of Key and Value](pairs.md#the-type-of-key-and-value), there is no other type than string. However, the developer might want to have an array. For example, filtering the movies by multiple genres. Two possible approaches come to mind.
+As mentioned [The Type of Key and Value](pairs.md#the-type-of-key-and-value), there is no other type than string. However, the developer might want to have an array. For example, filtering the movies by multiple genres. Two possible approaches come to mind. Pick your poison.
 
-| Approach | Input | Output | Description | Pros | Cons |
-| -------- | ----- | ------ | ----------- | ---- | ---- |
-| One key with comma-separated values | `genres:action,horror` | `[P("genres", "action,horror")]` | Use a split method on value | <ul><li>Easier to write</li></ul> | <ul><li>User might provide comma+space separated values, which breaks the parser</li></ul> |
-| Multiple keys with different values | `genre:action genre:horror` | `[P("genre", "action"), P("genre", "horror")]` | Add values to a list each time a key with same name occurs | <ul><li>Easier to comprehend</li></ul> | <ul><li>Many keystrokes</li><li>Takes longer to write</li></ul> |
+### Approach 1: One key with comma-separated values
 
-Pick your poison.
+An example is this:
+
+```plain
+# input
+genres:action,horror
+
+# result
+[P("genres", "action,horror")]
+```
+
+The developers can use a simple [split method like in Python](https://docs.python.org/3/library/stdtypes.html#str.split) to turn it into a list. It is easier to write.
+
+However, the user might use a comma+space combination, which will break the parser.
+
+### Approach 2: Multiple keys with different values
+
+Below is an example:
+
+```plain
+# input
+genres:action genres:horror
+```
+
+The developers can create a list and push into it each time the same key occurs. Despite its verbosity, it is easier to comprehend.
+
+On the other hand, this requires too many keystores and takes longer to type.
